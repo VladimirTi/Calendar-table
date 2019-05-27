@@ -3,33 +3,30 @@ function createCalendar(ID, year, month) {
   let dayHTML = '';
   let date = new Date(year, month - 1);
 
-  let firstDay = date.getDay()
-  if (firstDay === 0) firstDay = 7;
-  
+  let firstDay = date.getDay() === 0 ? 7 : date.getDay();
   for(let i = 1; i < firstDay; i++) {
     dayHTML += `<td></td>`
   }
 
   while(date.getMonth() + 1 === month) {
-    const currentDay = date.getDay()
-    const firstDayToAdd = currentDay === 0 ? 7 : currentDay
+    const firstDayToAdd = date.getDay() === 0 ? 7 : date.getDay()
     for (let i = firstDayToAdd; i < 8 && date.getMonth() + 1 === month; i++) {
       dayHTML += `<td>${date.getDate()}</td>`;
       date.setDate(date.getDate() + 1)
     }
 
-    while(currentDay !== 1) {
+    while(date.getDay() !== 1) {
       dayHTML += `<td></td>`
       date.setDate(date.getDate() + 1)
     }
 
-    dayHTML = `<tr>${dayHTML}</tr>`;
-    html += dayHTML;
-    dayHTML = '';
+    dayHTML = `<tr>${dayHTML}</tr>`
+    html += dayHTML
+    dayHTML = ''
   }
 
-  html = `<table>${html}</table>`;
-  document.getElementById(ID).innerHTML = html;
+  html = `<table>${html}</table>`
+  document.getElementById(ID).innerHTML = html
 }
 
-createCalendar('calendar', 2018, 7);
+createCalendar('calendar', 2018, 7)
